@@ -23,6 +23,7 @@ module.exports = class Client extends EventEmitter {
 	}
 
 	async connect() {
+		this.authflow.xbl.forceRefresh = true;
 		const auth = await this.authflow.getXboxToken('http://xboxlive.com');
 
 		this.ws = new WebSocket(this.address, { headers: { authorization: `XBL3.0 x=${auth.userHash};${auth.XSTSToken}` } });
@@ -56,7 +57,7 @@ module.exports = class Client extends EventEmitter {
 		clearTimeout(this.pingTimeout);
 		this.ws.removeAllListeners();
 		this.ws.close();
-		this.connect();
+		this.connect().then(() => this.emit('reconnect'));
 	}
 
 	send(data) {
