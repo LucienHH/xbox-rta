@@ -1,3 +1,5 @@
+const { EventEmitter } = require('events');
+
 class Subscription {
 	#rta;
 	constructor(rta, response) {
@@ -7,6 +9,22 @@ class Subscription {
 		this.code = response.code;
 		this.subId = response.subId;
 		this.data = response.data;
+	}
+
+	createEventListener({ timeout } = {}) {
+		const listener = new EventEmitter();
+
+		const cb = (data) => data.subId === this.subId ? listener.emit('data', data) : null;
+		this.#rta.on('event', cb);
+
+		if (timeout) {
+			setTimeout(() => {
+				listener.removeAllListeners();
+				this.#rta.removeListener('event', cb);
+			}, timeout);
+		}
+
+		return listener;
 	}
 
 	async unsubscribe() {

@@ -1,7 +1,7 @@
 {
   "name": "xbox-rta",
-  "version": "1.0.0",
-  "description": "Connect to Xbox's Real Time Activity API",
+  "version": "0.0.1",
+  "description": "Connect to Xbox's Real Time Activity service",
   "main": "index.js",
   "keywords": [
     "xbox",
@@ -10,10 +10,10 @@
   "author": "LucienHH",
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^2.6.1",
     "ws": "^8.6.0"
   },
   "devDependencies": {
+    "debug": "^4.3.4",
     "prismarine-auth": "^1.7.0",
     "xbox-rta": "file:."
   }

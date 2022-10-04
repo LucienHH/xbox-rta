@@ -8,13 +8,19 @@ const main = async () => {
 
 	await rta.connect();
 
-	const sub = await rta.subscribe('https://sessiondirectory.xboxlive.com/connections/');
+	const sub = await rta.subscribe('https://userpresence.xboxlive.com/users/xuid(2535451524524264)/richpresence');
 
 	console.log(sub);
 
+	const eventListener = sub.createEventListener({ timeout: 60000 });
+
+	eventListener.on('data', (data) => {
+		console.log('DATA: ', data);
+	});
+
 	setTimeout(async () => {
 		await rta.disconnect();
-	}, 60000);
+	}, 120000);
 
 };
 
