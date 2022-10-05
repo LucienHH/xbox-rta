@@ -17,6 +17,7 @@ class XboxRTA extends RTAClient {
 	}
 
 	async disconnect() {
+		if (this.ws?.readyState !== WebSocket.OPEN) throw new Error(`Not connected to ${this.address}`);
 		for (const sub of this.subscribitions.values()) {
 			await sub.unsubscribe();
 		}
