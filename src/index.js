@@ -1,4 +1,5 @@
 const debug = require('debug')('xbox-rta');
+const WebSocket = require('ws');
 
 const RTAClient = require('./client.js');
 const Subscription = require('./classes/Subscription.js');
@@ -11,6 +12,7 @@ class XboxRTA extends RTAClient {
 	}
 
 	async connect() {
+		if (this.ws?.readyState === WebSocket.OPEN) throw new Error(`Already connected to ${this.address}`);
 		await this.init();
 	}
 
