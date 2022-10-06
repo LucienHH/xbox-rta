@@ -1,8 +1,9 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
 import XboxRTA from '.src/index';
+import RTAClient from './src/client';
 declare module 'xbox-rta' {
-  export class XboxRTA {
+  export class XboxRTA extends RTAClient {
     /**
      * Creates a new xbox-rta instance, which handles and creates a socket connection the the Xbox RTA (Real Time Activity) service
      * @param authflow An Authflow instance from [prismarine-auth](https://github.com/PrismarineJS/prismarine-auth).
