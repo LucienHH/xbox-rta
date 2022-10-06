@@ -19,6 +19,7 @@ module.exports = class RTAClient extends EventEmitter {
 	async init() {
 		this.authflow.xbl.forceRefresh = true;
 		const xbl = await this.authflow.getXboxToken('http://xboxlive.com');
+		this.authflow.xbl.forceRefresh = false;
 
 		this.ws = new WebSocket(this.address, { headers: { authorization: `XBL3.0 x=${xbl.userHash};${xbl.XSTSToken}` } });
 
