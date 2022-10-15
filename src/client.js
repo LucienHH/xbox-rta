@@ -129,7 +129,7 @@ module.exports = class RTAClient extends EventEmitter {
 		clearTimeout(this.pingTimeout);
 		this.pingTimeout = setTimeout(() => {
 			debug('RTA Ping Timeout');
-			this.terminate();
+			this.ws.terminate();
 		}, 31000);
 	}
 };
