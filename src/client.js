@@ -69,6 +69,8 @@ module.exports = class RTAClient extends EventEmitter {
 	// }
 
 	handleMessage(res) {
+		this._heartbeat();
+
 		const msgJson = JSON.parse(res);
 		const messageType = msgJson[0];
 
