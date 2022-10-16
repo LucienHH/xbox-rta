@@ -10,13 +10,14 @@ module.exports = class RTAClient extends EventEmitter {
 		this.authflow = authflow;
 		this.address = address;
 		this.pingTimeout;
-		this.subscribitions = new Map();
-		this.mapper = new Map();
-		this.sequenceN = 1;
 		this.sendQueue = [];
 	}
 
 	async init() {
+		this.sequenceN = 1;
+		this.mapper = new Map();
+		this.subscribitions = new Map();
+
 		this.authflow.xbl.forceRefresh = true;
 		const xbl = await this.authflow.getXboxToken('http://xboxlive.com');
 		this.authflow.xbl.forceRefresh = false;
@@ -35,7 +36,7 @@ module.exports = class RTAClient extends EventEmitter {
 
 		this.ws.on('pong', () => this._heartbeat());
 
-		this.ws.on('close', () => debug(`RTA Disconnected from ${this.address}`));
+		this.ws.on('close', (code, reason) => debug(`RTA Disconnected from ${this.address} with code ${code} and reason ${reason}`));
 
 		this.ws.on('error', err => debug('RTA Error', err));
 
