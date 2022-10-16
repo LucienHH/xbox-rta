@@ -33,7 +33,7 @@ module.exports = class RTAClient extends EventEmitter {
 			this.sendQueue = [];
 		});
 
-		this.ws.on('pong', this._heartbeat);
+		this.ws.on('pong', () => this._heartbeat());
 
 		this.ws.on('close', () => debug(`RTA Disconnected from ${this.address}`));
 
