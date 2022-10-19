@@ -25,7 +25,7 @@ module.exports = class RTAClient extends EventEmitter {
 		this.ws = new WebSocket(this.address, { headers: { authorization: `XBL3.0 x=${xbl.userHash};${xbl.XSTSToken}` } });
 
 		this.ws.once('open', () => {
-			setTimeout(() => {
+			this.reconnectTimeout = setTimeout(() => {
 				debug(`Reconnecting to ${this.address}`);
 				this.reconnect();
 			}, 90 * 60 * 1000); // 90 minutes
@@ -36,7 +36,15 @@ module.exports = class RTAClient extends EventEmitter {
 
 		this.ws.on('pong', () => this._heartbeat());
 
-		this.ws.on('close', (code, reason) => debug(`RTA Disconnected from ${this.address} with code ${code} and reason ${reason}`));
+		this.ws.on('close', (code, reason) => {
+			debug(`RTA Disconnected from ${this.address} with code ${code} and reason ${reason}`);
+
+			if (code === 1006) {
+				debug('RTA Connection Closed Unexpectedly');
+				clearTimeout(this.reconnectTimeout);
+				this.reconnect();
+			}
+		});
 
 		this.ws.on('error', err => debug('RTA Error', err));
 
