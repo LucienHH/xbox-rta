@@ -4,17 +4,16 @@ class Subscription {
 	#rta;
 	constructor(rta, response) {
 		this.#rta = rta;
-		this.type = response.type;
+		this.id = response.subId;
 		this.sequence = response.sequence;
 		this.code = response.code;
-		this.subId = response.subId;
 		this.data = response.data;
 	}
 
 	createEventListener({ timeout } = {}) {
 		const listener = new EventEmitter();
 
-		const cb = (data) => data.subId === this.subId ? listener.emit('data', data) : null;
+		const cb = (data) => data.subId === this.id ? listener.emit('data', data) : null;
 		this.#rta.on('event', cb);
 
 		if (timeout) {
@@ -28,7 +27,7 @@ class Subscription {
 	}
 
 	async unsubscribe() {
-		const response = await this.#rta.unsubscribe(this.subId);
+		const response = await this.#rta.unsubscribe(this.id);
 		return response;
 	}
 }

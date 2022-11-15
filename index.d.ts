@@ -42,6 +42,11 @@ declare module 'xbox-rta' {
      */
     constructor(rta: XboxRTA, rawSub: subscribeResponse)
 
+    id: string
+    sequence: number 
+    code: number
+    data: any    
+
     /**
      * Returns an event emitter for the subscription
      */
