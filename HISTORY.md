@@ -1,5 +1,8 @@
 ## History
 
+### 1.0.1
+* Update for pauth 2.0.0 & correctly disconnect
+
 ### 1.0.0
 * Update types
 * Rename subId to id within subscription class
