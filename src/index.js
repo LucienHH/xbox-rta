@@ -22,6 +22,9 @@ class XboxRTA extends RTAClient {
 			await sub.unsubscribe();
 		}
 
+		clearTimeout(this.reconnectTimeout);
+		clearTimeout(this.pingTimeout);
+
 		debug('Disconnecting from RTA');
 
 		this.ws.close();

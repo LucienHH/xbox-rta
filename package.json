@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "debug": "^4.3.4",
-    "prismarine-auth": "^1.7.0",
+    "prismarine-auth": "^2.2.0",
     "xbox-rta": "file:."
   }
 }

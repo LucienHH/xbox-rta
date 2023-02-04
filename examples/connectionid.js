@@ -2,7 +2,7 @@ const { XboxRTA } = require('xbox-rta');
 const { Authflow, Titles } = require('prismarine-auth');
 
 const main = async () => {
-	const auth = new Authflow('example', './', { authTitle: Titles.MinecraftNintendoSwitch, deviceType: 'Nintendo' });
+	const auth = new Authflow('example', './', { authTitle: Titles.MinecraftNintendoSwitch, deviceType: 'Nintendo', flow: 'live' });
 
 	const rta = new XboxRTA(auth);
 
@@ -13,8 +13,9 @@ const main = async () => {
 	console.log(sub);
 
 	setTimeout(async () => {
+		console.log('Unsubscribing');
 		await rta.disconnect();
-	}, 60000);
+	}, 15000);
 
 };
 
