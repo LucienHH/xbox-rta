@@ -10,31 +10,31 @@ const debug = debugFn('xbox-rta')
 const address = 'wss://rta.xboxlive.com/connect'
 
 export interface SubscribeResponse {
-	type: number
-	sequenceId: number
-	status: number
-	subscriptionId: string
-	data: unknown
+  type: number
+  sequenceId: number
+  status: number
+  subscriptionId: string
+  data: unknown
   uri: string | null
 }
 
 export interface UnsubscribeResponse {
-	type: number
-	sequenceId: number
-	status: number
+  type: number
+  sequenceId: number
+  status: number
 }
 
 export interface EventResponse {
-	type: number
-	subscriptionId: string
-	data: unknown
+  type: number
+  subscriptionId: string
+  data: unknown
 }
 
 interface RTAEvents {
-	event: (event: EventResponse) => void
-	subscribe: (event: SubscribeResponse) => void
-	unsubscribe: (event: UnsubscribeResponse) => void
-	error: (error: Error) => void
+  event: (event: EventResponse) => void
+  subscribe: (event: SubscribeResponse) => void
+  unsubscribe: (event: UnsubscribeResponse) => void
+  error: (error: Error) => void
 }
 
 const promiseMap = new Map<number, { resolve: (value: unknown) => void, reject: (reason?: any) => void, data: string }>()
