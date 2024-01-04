@@ -2,19 +2,33 @@
   "name": "xbox-rta",
   "version": "1.0.1",
   "description": "Connect to Xbox's Real Time Activity service",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "xbox",
     "rta"
   ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
   "author": "LucienHH",
   "license": "MIT",
   "dependencies": {
+    "debug": "^4.3.4",
+    "prismarine-auth": "^2.3.0",
+    "tiny-typed-emitter": "^2.1.0",
     "ws": "^8.6.0"
   },
   "devDependencies": {
-    "debug": "^4.3.4",
-    "prismarine-auth": "^2.2.0",
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.10.6",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
     "xbox-rta": "file:."
   }
 }
