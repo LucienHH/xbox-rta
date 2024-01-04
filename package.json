@@ -8,6 +8,10 @@
     "xbox",
     "rta"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LucienHH/xbox-rta"
+  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w"
