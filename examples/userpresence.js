@@ -1,27 +1,30 @@
-const { XboxRTA } = require('xbox-rta');
-const { Authflow, Titles } = require('prismarine-auth');
+process.env.DEBUG = 'xbox-rta'
+
+const { XboxRTA } = require('xbox-rta')
+const { Authflow, Titles } = require('prismarine-auth')
 
 const main = async () => {
-	const auth = new Authflow('example', './', { authTitle: Titles.MinecraftNintendoSwitch, deviceType: 'Nintendo', flow: 'live' });
+  const auth = new Authflow('example', './', { authTitle: Titles.XboxAppIOS, deviceType: 'iOS', flow: 'sisu' })
 
-	const rta = new XboxRTA(auth);
+  const rta = new XboxRTA(auth)
 
-	await rta.connect();
+  rta.on('subscribe', (data) => {
+    console.log(data)
+  })
 
-	const sub = await rta.subscribe('https://userpresence.xboxlive.com/users/xuid(2535451524524264)/richpresence');
+  rta.on('event', (data) => {
+    console.log(data)
+  })
 
-	console.log(sub);
+  await rta.connect()
 
-	const eventListener = sub.createEventListener({ timeout: 60000 });
+  // Recieve events when the user's presence changes
+  await rta.subscribe('https://userpresence.xboxlive.com/users/xuid(2535451524524264)/richpresence')
 
-	eventListener.on('data', (data) => {
-		console.log('DATA: ', data);
-	});
+  setTimeout(async () => {
+    await rta.destroy()
+  }, 30000)
 
-	setTimeout(async () => {
-		await rta.disconnect();
-	}, 120000);
+}
 
-};
-
-main();
+main()
