@@ -1,5 +1,6 @@
+dist/
+.vscode
 node_modules/
 package-lock.json
-.vscode
-
+examples/research
 *-cache.json

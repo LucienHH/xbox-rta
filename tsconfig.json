@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+		"outDir": "./dist",
+		"strict": true,
+		"sourceMap": false,
+		"alwaysStrict": true,
+		"removeComments": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": true,
+		"skipLibCheck": false,
+		"esModuleInterop": true,
+		"declaration": true
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["./node_modules"]
+}
