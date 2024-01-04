@@ -37,17 +37,6 @@ const main = async () => {
 	const sub = await rta.subscribe('https://sessiondirectory.xboxlive.com/connections/');
 
 	console.log(sub.data.ConnectionId);
-
-	/*
-	{
-		type: 1,
-		sequenceId: 0,
-		status: 0,
-		subscriptionId: 0,
-		data: { ConnectionId: 'd70140fd-7d47-4b5f-b967-fca6c16e71ab' },
-		uri: 'https://sessiondirectory.xboxlive.com/connections/'
-	}
-	*/
 };
 
 main();
