@@ -1,0 +1,9 @@
+node_modules/
+.env*
+.gitignore
+.eslintrc.json
+.npmignore
+HISTORY.md
+tsconfig.json
+examples/
+src/
