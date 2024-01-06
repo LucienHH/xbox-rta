@@ -1,4 +1,5 @@
 node_modules/
+.github/
 .env*
 .gitignore
 .eslintrc.json
@@ -7,3 +8,4 @@ HISTORY.md
 tsconfig.json
 examples/
 src/
+*-cache.json
