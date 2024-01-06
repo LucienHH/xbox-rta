@@ -1,5 +1,8 @@
 ## History
 
+### 2.0.0
+* Codebase rewrtten in typescript
+
 ### 1.0.1
 * Update for pauth 2.0.0 & correctly disconnect
 
