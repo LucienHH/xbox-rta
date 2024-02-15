@@ -151,9 +151,20 @@ export class XboxRTA extends TypedEmitter<RTAEvents> {
       this.queue.push(data)
     }
 
-    const response = new Promise((resolve, reject) => {
-      setTimeout(() => reject(new Error('Timeout')), 30000)
-      promiseMap.set(sequenceId, { resolve, reject, data: payload })
+    const response = await new Promise((resolve, reject) => {
+      const sendTimeout = setTimeout(() => reject(new Error('Timeout')), 30000)
+
+      const onRes = (res: unknown) => {
+        clearTimeout(sendTimeout)
+        resolve(res)
+      }
+
+      const onRej = (err: unknown) => {
+        clearTimeout(sendTimeout)
+        reject(err)
+      }
+
+      promiseMap.set(sequenceId, { resolve: onRes, reject: onRej, data: payload })
     })
 
     return response
