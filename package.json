@@ -1,6 +1,6 @@
 {
   "name": "xbox-rta",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Connect to Xbox's Real Time Activity service",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
