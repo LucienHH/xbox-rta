@@ -1,3 +1,4 @@
+import axios from 'axios'
 import debugFn from 'debug'
 import { WebSocket, type Data } from 'ws'
 import { Authflow } from 'prismarine-auth'
@@ -170,24 +171,25 @@ export class XboxRTA extends TypedEmitter<RTAEvents> {
     return response
   }
 
-  // async getNonce() {
-  // 	debug('Fetching RTA nonce');
-  // 	const nonce = await axios('https://rta.xboxlive.com/nonce', { headers: { authorization: this.authorization } }).then(res => res.data.nonce);
-  // 	debug('Fetched RTA nonce', nonce);
-  // 	return nonce;
-  // }
-
   private async init() {
 
-    const xbl = await this.authflow.getXboxToken('http://xboxlive.com')
+    // @ts-expect-error prismarine-auth types do not include refreshToken argument
+    const xbl = await this.authflow.getXboxToken('http://xboxlive.com', true)
 
     this.authorization = `XBL3.0 x=${xbl.userHash};${xbl.XSTSToken}`
 
-    // const nonce = await this.getNonce()
+    debug('Fetched XBL Token', xbl)
+
+    const nonce = await axios('https://rta.xboxlive.com/nonce', { headers: { authorization: this.authorization } })
+      .then(res => res.data.nonce)
+
+    debug('Fetched RTA nonce', nonce)
+
+    const address = `wss://rta.xboxlive.com/connect?nonce=${nonce}`
 
     debug(`Connecting to ${address}`)
 
-    const ws = new WebSocket(`${address}`, { headers: { 'authorization': this.authorization, 'Accept-Language': 'en-GB' } })
+    const ws = new WebSocket(address, 'rta.xboxlive.com.V2')
 
     ws.on('pong', () => { this.heartbeat() })
 
