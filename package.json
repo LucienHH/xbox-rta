@@ -19,8 +19,9 @@
   "author": "LucienHH",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.7.2",
     "debug": "^4.3.4",
-    "prismarine-auth": "^2.3.0",
+    "prismarine-auth": "^2.5.0",
     "tiny-typed-emitter": "^2.1.0",
     "ws": "^8.6.0"
   },
