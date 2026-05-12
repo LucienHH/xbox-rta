@@ -1,4 +1,3 @@
-import axios from 'axios'
 import debugFn from 'debug'
 import { WebSocket, type Data } from 'ws'
 import { Authflow } from 'prismarine-auth'
@@ -180,8 +179,15 @@ export class XboxRTA extends TypedEmitter<RTAEvents> {
 
     debug('Fetched XBL Token', xbl)
 
-    const nonce = await axios('https://rta.xboxlive.com/nonce', { headers: { authorization: this.authorization } })
-      .then(res => res.data.nonce)
+    const nonceResponse = await fetch('https://rta.xboxlive.com/nonce', {
+      headers: { authorization: this.authorization }
+    })
+
+    if (!nonceResponse.ok) {
+      throw new Error(`Failed to fetch RTA nonce: ${nonceResponse.status} ${nonceResponse.statusText}`)
+    }
+
+    const { nonce } = await nonceResponse.json() as { nonce: string }
 
     debug('Fetched RTA nonce', nonce)
 

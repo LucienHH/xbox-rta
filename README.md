@@ -9,6 +9,8 @@ Creates and manages an Xbox RTA (Real Time Activity) connection. This websocket 
 npm install xbox-rta
 ```
 
+Node.js 18 or newer is required.
+
 # Usage
 
 ## XboxRTA(authflow)
