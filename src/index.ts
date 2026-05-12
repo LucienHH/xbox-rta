@@ -172,7 +172,6 @@ export class XboxRTA extends TypedEmitter<RTAEvents> {
 
   private async init() {
 
-    // @ts-expect-error prismarine-auth types do not include refreshToken argument
     const xbl = await this.authflow.getXboxToken('http://xboxlive.com', true)
 
     this.authorization = `XBL3.0 x=${xbl.userHash};${xbl.XSTSToken}`
@@ -180,7 +179,7 @@ export class XboxRTA extends TypedEmitter<RTAEvents> {
     debug('Fetched XBL Token', xbl)
 
     const nonceResponse = await fetch('https://rta.xboxlive.com/nonce', {
-      headers: { authorization: this.authorization }
+      headers: { authorization: this.authorization },
     })
 
     if (!nonceResponse.ok) {
